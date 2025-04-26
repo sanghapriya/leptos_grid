@@ -19,7 +19,7 @@ concurrency:
 jobs:
   Github-Pages-Release:
 
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     environment:
       name: github-pages
@@ -90,4 +90,4 @@ jobs:
 
       - name: Deploy to GitHub Pages 🚀
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
