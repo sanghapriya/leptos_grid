@@ -1,17 +1,18 @@
 use leptos::prelude::*;
+use reactive_stores::{Field, Patch, Store};
 use crate::data_type::entry_multiple::EntryMultiple;
 use crate::component::grid_cell_element::GridCellElement;
+use crate::data_type::rows::{Row, RowStoreFields};
 
 
 
 
 #[component]
-pub fn GridCellMulti(entry: EntryMultiple) -> impl IntoView {
-    let setter = use_context::<WriteSignal<Vec<EntryMultiple>>>().unwrap();
+pub fn GridCellMulti(
+    
+    #[prop(into)] row: Field<Row>) -> impl IntoView {
+   
 
-    let all_fields_string = entry.fields.iter().map(|(key, _)| {
-        format!("{}", key)
-    }).collect::<Vec<String>>();
 
 
     view! {
@@ -72,18 +73,17 @@ pub fn GridCellMulti(entry: EntryMultiple) -> impl IntoView {
         <div class="grid-row">
          
          {
-             all_fields_string.into_iter()
-                .map(|fild_key| 
+             
                     view! {
-                    <GridCellElement element = entry.fields.get(&fild_key).unwrap().value.clone()/>
-                    }).collect::<Vec<_>>()
+                    <GridCellElement element = " ".to_string()/>
+                    }
                 
             }
             <button  on:click=move |_| {
                 
-                setter.update(|entries| {
-                    entries.retain(|e| e.key != entry.key);
-                });
+                // setter.update(|entries| {
+                //     entries.retain(|e| e.key != entry.key);
+                // });
             }>
             
             -

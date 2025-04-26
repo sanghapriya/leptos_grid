@@ -1,10 +1,13 @@
 use crate::data_type::field_value::FieldValue;
 use std::collections::HashMap;
+use reactive_stores::{Field, Patch, Store};
+use leptos::prelude::*;
 
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Store)]
 pub struct EntryMultiple {
     pub key: String,
+    // pub headers: RwString<Vec<String>>,
     pub fields: HashMap<String, FieldValue>, 
 }
 
