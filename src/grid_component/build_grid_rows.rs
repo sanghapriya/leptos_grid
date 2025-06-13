@@ -8,10 +8,27 @@ use super::build_grid_row::BuildGridRow;
 #[component]
 pub fn BuildGridRows(
     #[prop(into)] grid_rows: Store<GridRows>,
+    search_query: ReadSignal<String>,
 ) -> impl IntoView {
     view! {
         <For
-            each=move || grid_rows.rows()
+            each=move || {
+                let q = search_query.get().to_lowercase();
+                grid_rows
+                    .rows()
+                    .into_iter()
+                    .filter(|row| {
+                        if q.is_empty() {
+                            true
+                        } else {
+                            row
+                                .fields()
+                                .iter()
+                                .any(|field| field.value().get().to_lowercase().contains(&q))
+                        }
+                    })
+                    .collect::<Vec<_>>()
+            }
             key=move |item| item.id().get()
             let(grid_row)
         >

@@ -27,6 +27,8 @@ fn App() -> impl IntoView {
 
     provide_context(grid_store);
 
+    let (search_query, set_search_query) = create_signal(String::new());
+
 
 
     let grid_header = expect_context::<Store<Grid>>();
@@ -80,13 +82,20 @@ fn App() -> impl IntoView {
 "
 </style>
 
+        <input
+            type="text"
+            placeholder="Search..."
+            on:input=move |ev| {
+                set_search_query(event_target_value(&ev));
+            }
+        />
         <table class ="data-table">
         <thead>
 
         <GridLayoutMulti/>
         </thead>
         <tbody>
-        <BuildGridRows grid_rows = grid_store/>
+        <BuildGridRows grid_rows = grid_store search_query=search_query/>
         </tbody>
         </table>
         <br/>
